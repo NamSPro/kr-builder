@@ -3,7 +3,9 @@
 #include <string>
 #include <SDL.h>
 #include <SDL_image.h>
+#include <SDL_ttf.h>
 #include "enums.h"
+#include "lib/texture_wrapper.h"
 
 const int SCREEN_WIDTH = 1280;
 const int HALF_SCREEN_WIDTH = 640;
@@ -27,8 +29,10 @@ SDL_Texture* loadTexture(std::string path);
 SDL_Window* gWindow = nullptr;
 // the renderer
 SDL_Renderer* gRenderer = nullptr;
-SDL_Texture* gBorders[BORDER_TOTAL] = {nullptr, nullptr};
+WTexture gBorders[BORDER_TOTAL];
 SDL_Texture* gBgTile = nullptr;
+
+TTF_Font* gFont = nullptr;
 
 bool init(){
     // init flag
@@ -64,6 +68,18 @@ bool init(){
 					printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
 					success = false;
 				}
+                if(TTF_Init() != 0){
+                    printf("SDL_ttf could not initialize! SDL_ttf error: %s\n", TTF_GetError());
+                    success = false;
+                }
+                else{
+                    // initialize TTF loading
+                    gFont = TTF_OpenFont("NanumGothicExtraBold.ttf", 20);
+                    if(gFont == nullptr){
+                        printf("SDL_ttf failed to open! SDL_ttf error: %s\n", TTF_GetError());
+                        success = false;
+                    }
+                }
 			}
 		}
     }
@@ -75,14 +91,12 @@ bool loadMedia(){
 	bool success = true;
 
 	//Load PNG texture
-	gBorders[LR_BORDER] = loadTexture(".\\img\\leftright-border.png");
-	if(gBorders[LR_BORDER] == nullptr){
-		printf("Failed to load texture image!\n");
+	if(!gBorders[LR_BORDER].loadFromFile(".\\img\\leftright-border.png", gRenderer)){
+		printf("Failed to load left-right border texture image!\n");
 		success = false;
 	}
-    gBorders[TOP_BORDER] = loadTexture(".\\img\\top-border.png");
-	if(gBorders[TOP_BORDER] == nullptr){
-		printf("Failed to load texture image!\n");
+	if(!gBorders[TOP_BORDER].loadFromFile(".\\img\\top-border.png", gRenderer)){
+		printf("Failed to load top border texture image!\n");
 		success = false;
 	}
     gBgTile = loadTexture(".\\img\\tiles.png");
@@ -97,8 +111,7 @@ bool loadMedia(){
 void close(){
     // destroy texture
     for(int i = 0; i < BORDER_TOTAL; i++){
-        SDL_DestroyTexture(gBorders[i]);
-        gBorders[i] = nullptr;
+        gBorders[i].free();
     }
     SDL_DestroyTexture(gBgTile);
     gBgTile = nullptr;
@@ -173,9 +186,9 @@ int main(int argc, char* argv[]){
                 SDL_RenderCopy(gRenderer, gBgTile, NULL, &dest);
             }
         }
-        SDL_RenderCopy(gRenderer, gBorders[LR_BORDER], NULL, &L_BORDER_RECT);
-        SDL_RenderCopyEx(gRenderer, gBorders[LR_BORDER], NULL, &R_BORDER_RECT, 0, NULL, SDL_FLIP_HORIZONTAL);
-        SDL_RenderCopy(gRenderer, gBorders[TOP_BORDER], NULL, &T_BORDER_RECT);
+        gBorders[LR_BORDER].render(0, 0, gRenderer);
+        gBorders[LR_BORDER].renderEx(SCREEN_WIDTH - 57, 0, gRenderer, nullptr, 0.0, nullptr, SDL_FLIP_VERTICAL);
+        gBorders[TOP_BORDER].render(0, 0, gRenderer);
 
         //Update screen
         SDL_RenderPresent(gRenderer);
