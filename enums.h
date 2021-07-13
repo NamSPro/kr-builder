@@ -1,5 +1,0 @@
-enum BORDER_COUNT{
-    LR_BORDER,
-    TOP_BORDER,
-    BORDER_TOTAL
-};

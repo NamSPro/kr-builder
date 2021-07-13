@@ -1,5 +1,5 @@
 #OBJS specifies which files to compile as part of the project
-OBJS = main.cpp lib\texture_wrapper.cpp
+OBJS = main.cpp lib\texture_wrapper.cpp lib\option.cpp lib\gear.cpp
 
 #CC specifies which compiler we're using
 CC = g++

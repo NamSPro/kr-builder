@@ -4,16 +4,14 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
-#include "enums.h"
-#include "lib/texture_wrapper.h"
+#include "lib\\enums.h"
+#include "lib\\gear.h"
+#include "lib\\texture_wrapper.h"
 
 const int SCREEN_WIDTH = 1280;
 const int HALF_SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 720;
 
-const SDL_Rect L_BORDER_RECT = {.x = 0, .y = 0, .w = 57, .h = SCREEN_HEIGHT};
-const SDL_Rect R_BORDER_RECT = {.x = SCREEN_WIDTH - 57, .y = 0, .w = 57, .h = SCREEN_HEIGHT};
-const SDL_Rect T_BORDER_RECT = {.x = 0, .y = 0, .w = SCREEN_WIDTH, .h = 64};
 const int TILE_SIZE = 70;
 
 bool init();
@@ -30,7 +28,7 @@ SDL_Window* gWindow = nullptr;
 // the renderer
 SDL_Renderer* gRenderer = nullptr;
 WTexture gBorders[BORDER_TOTAL];
-SDL_Texture* gBgTile = nullptr;
+WTexture gBgTile;
 
 TTF_Font* gFont = nullptr;
 
@@ -99,12 +97,10 @@ bool loadMedia(){
 		printf("Failed to load top border texture image!\n");
 		success = false;
 	}
-    gBgTile = loadTexture(".\\img\\tiles.png");
-	if(gBgTile == nullptr){
+	if(!gBgTile.loadFromFile(".\\img\\tiles.png", gRenderer)){
 		printf("Failed to load texture image!\n");
 		success = false;
 	}
-
 	return success;
 }
 
@@ -113,8 +109,7 @@ void close(){
     for(int i = 0; i < BORDER_TOTAL; i++){
         gBorders[i].free();
     }
-    SDL_DestroyTexture(gBgTile);
-    gBgTile = nullptr;
+    gBgTile.free();
 
     // destroy resources
     SDL_DestroyRenderer(gRenderer);
@@ -182,12 +177,11 @@ int main(int argc, char* argv[]){
         // background tiles
         for(int i = 0; i <= SCREEN_WIDTH / TILE_SIZE; i++){
             for(int j = 0; j <= SCREEN_HEIGHT / TILE_SIZE; j++){
-                SDL_Rect dest = {.x = TILE_SIZE * i, .y = TILE_SIZE * j, .w = TILE_SIZE, .h = TILE_SIZE};
-                SDL_RenderCopy(gRenderer, gBgTile, NULL, &dest);
+                gBgTile.render(TILE_SIZE * i, TILE_SIZE * j, gRenderer);
             }
         }
         gBorders[LR_BORDER].render(0, 0, gRenderer);
-        gBorders[LR_BORDER].renderEx(SCREEN_WIDTH - 57, 0, gRenderer, nullptr, 0.0, nullptr, SDL_FLIP_VERTICAL);
+        gBorders[LR_BORDER].renderEx(SCREEN_WIDTH - gBorders[LR_BORDER].getWidth(), 0,  gRenderer, nullptr, 0.0, nullptr, SDL_FLIP_VERTICAL);
         gBorders[TOP_BORDER].render(0, 0, gRenderer);
 
         //Update screen
