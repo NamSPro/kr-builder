@@ -3,6 +3,9 @@
 // Also included is the Rune class used to represent runes
 // And a bunch of constant options, the OPTION_TYPE and RUNE_OPTIONS enums
 
+#ifndef OPTION_H
+#define OPTION_H
+
 // OPTION_TYPE enum
 enum OPTION_TYPE{
     OPTION_NONE,
@@ -39,7 +42,8 @@ enum OPTION_TYPE{
     OPTION_TOUGH,
     OPTION_PTOUGH,
     OPTION_MTOUGH,
-    OPTION_MPDMG
+    OPTION_MPDMG,
+    OPTION_TOTAL
 };
 
 // RUNE_OPTIONS enum
@@ -53,7 +57,12 @@ class Option{
 public:
     Option(int type = OPTION_NONE, double value = 0.0);
     ~Option();
-    void optionChange(int newType, double newValue);
+    // setter functions
+    void changeOption(int newType, double newValue);
+    void changeValue(double newValue);
+    // getter functions
+    int getOptionType();
+    double getOptionValue();
 private:
     int optionType;
     double optionValue;
@@ -81,3 +90,6 @@ const Option RUNE_VELK_MTOUGH = Option(OPTION_MTOUGH, 110.0);
 const Option RUNE_LIFESTEAL = Option(OPTION_LIFESTEAL, 200.0);
 const Option RUNE_VELK_LIFESTEAL = Option(OPTION_LIFESTEAL, 110.0);
 const Option RUNE_MPATK = Option(OPTION_MPATK, 400.0);
+const Option RUNE_VELK_MPATK = Option(OPTION_MPATK, 220.0);
+
+#endif // OPTION_H

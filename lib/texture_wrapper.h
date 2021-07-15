@@ -1,6 +1,9 @@
 // texture_wrapper.h
 // This file declares the class WTexture (Wrapper on Texture), a wrapper on SDL_Texture
 
+#ifndef TEXTURE_WRAPPER_H
+#define TEXTURE_WRAPPER_H
+
 #include <string>
 #include <SDL.h>
 #include <SDL_image.h>
@@ -30,3 +33,5 @@ private:
     // image dimensions
     int mWidth, mHeight;
 };
+
+#endif // TEXTURE_WRAPPER_H

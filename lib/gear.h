@@ -1,6 +1,9 @@
 // gear.h
 // This file declares a Gear class for equipments
 
+#ifndef GEAR_H
+#define GEAR_H
+
 #include "option.h"
 
 // gear enums
@@ -13,7 +16,8 @@ enum GEAR_TYPE{
     GEAR_TREASURE,
     GEAR_ACCESSORY,
     GEAR_ORB,
-    GEAR_ARTIFACT
+    GEAR_ARTIFACT,
+    GEAR_TOTAL
 };
 
 enum ACCESSORY_TYPE{
@@ -51,9 +55,18 @@ class Gear{
 public:
     Gear();
     ~Gear();
+    // setter functions
+    void changeGearType(int newType, int newAccessoryType = ACCESSORY_NONE);
     bool changeOption(int position, Option newOption);
-    bool changeRune(int position, Rune newRune);
-    bool changeEnchant(int position, Option newOption);
+    bool changeOption(int position, int newOption, double newValue);
+    bool changeOptionValue(int position, double newValue);
+    // bool changeRune(int position, Rune newRune);
+    // bool changeEnchant(int position, Option newOption);
+    // getter functions
+    int getGearType();
+    int getAccessoryType();
+    int getStatBoost();
+    Option getOption(int position);
 private:
     // denotes the position and accessory type
     // generally accessoryType should be ACCESSORY_NONE unless gearType is GEAR_ACCESSORY
@@ -63,6 +76,8 @@ private:
     // isReclaimed should only be changed when gearCondition is GEAR_TM
     bool isReclaimed;
     int starLevel;
+    // this represents flat stats
+    int statBoost;
     // this represents gear options
     Option gearOptions[GEAR_OPTIONS_TOTAL];
     // this represents runes (from 1 of a single stat rune on armors, upto 3 Velk runes on weapon)
@@ -70,3 +85,5 @@ private:
     // this represents enchantments (from 1 of traditional gear to 3 of TM)
     Option gearEnchants[GEAR_ENCHANTS_TOTAL];
 };
+
+#endif // GEAR_H

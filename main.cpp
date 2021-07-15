@@ -5,7 +5,7 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 #include "lib\\enums.h"
-#include "lib\\gear.h"
+#include "lib\\hero.h"
 #include "lib\\texture_wrapper.h"
 
 const int SCREEN_WIDTH = 1280;
@@ -145,6 +145,20 @@ SDL_Texture* loadTexture(std::string path){
 	return newTexture;
 }
 
+// testing purposes only
+void test(){
+    Hero kara(CLASS_MECHANIC);
+    printf("%f\n", kara.getBaseStat(OPTION_ATK));
+    Gear heavenshatterer;
+    heavenshatterer.changeGearType(GEAR_WEAPON);
+    kara.changeGear(GEAR_WEAPON, heavenshatterer);
+    printf("%f\n", kara.getStat(OPTION_ATK));
+    kara.changeGearOption(GEAR_WEAPON, 0, Option(OPTION_ATK, 12.0));
+    printf("%f", kara.getStat(OPTION_ATK));
+    return;
+}
+// remember to delete when prod is up
+
 int main(int argc, char* argv[]){
     // start up SDL and create window
     if(!init()){
@@ -190,5 +204,6 @@ int main(int argc, char* argv[]){
 
     // free resources and close SDL
     close();
+    test();
     return 0;
 }
