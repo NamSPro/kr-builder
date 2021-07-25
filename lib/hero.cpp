@@ -2,6 +2,7 @@
 // This file implements functions declared in hero.h
 
 #include <algorithm>
+#include <cstdio>
 #include "hero.h"
 
 Hero::Hero(int heroClass){
