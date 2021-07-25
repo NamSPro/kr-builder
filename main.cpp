@@ -4,15 +4,9 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
-#ifdef _WIN32
-#include "lib\\enums.h"
-#include "lib\\hero.h"
-#include "lib\\texture_wrapper.h"
-#else
 #include "lib/enums.h"
 #include "lib/hero.h"
 #include "lib/texture_wrapper.h"
-#endif
 
 const int SCREEN_WIDTH = 1280;
 const int HALF_SCREEN_WIDTH = 640;
@@ -95,15 +89,15 @@ bool loadMedia(){
 	bool success = true;
 
 	//Load PNG texture
-	if(!gBorders[LR_BORDER].loadFromFile(".\\img\\leftright-border.png", gRenderer)){
+	if(!gBorders[LR_BORDER].loadFromFile("img/leftright-border.png", gRenderer)){
 		printf("Failed to load left-right border texture image!\n");
 		success = false;
 	}
-	if(!gBorders[TOP_BORDER].loadFromFile(".\\img\\top-border.png", gRenderer)){
+	if(!gBorders[TOP_BORDER].loadFromFile("img/top-border.png", gRenderer)){
 		printf("Failed to load top border texture image!\n");
 		success = false;
 	}
-	if(!gBgTile.loadFromFile(".\\img\\tiles.png", gRenderer)){
+	if(!gBgTile.loadFromFile("img/tiles.png", gRenderer)){
 		printf("Failed to load texture image!\n");
 		success = false;
 	}
