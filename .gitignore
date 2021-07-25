@@ -1,4 +1,8 @@
 .vscode
 .git
-44142531.png
+sdl
+build
 main.exe
+main
+CMakeLists.txt
+lib*

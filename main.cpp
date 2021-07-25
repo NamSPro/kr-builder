@@ -4,9 +4,15 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
+#ifdef _WIN32
 #include "lib\\enums.h"
 #include "lib\\hero.h"
 #include "lib\\texture_wrapper.h"
+#else
+#include "lib/enums.h"
+#include "lib/hero.h"
+#include "lib/texture_wrapper.h"
+#endif
 
 const int SCREEN_WIDTH = 1280;
 const int HALF_SCREEN_WIDTH = 640;
