@@ -4,41 +4,41 @@
 #include "option.h"
 
 Option::Option(int type, double value){
-    optionType = type;
-    optionValue = value;
-    return;
+	optionType = type;
+	optionValue = value;
+	return;
 }
 
 Option::~Option(){
-    return;
+	return;
 }
 
 void Option::changeOption(int newType, double newValue){
-    optionType = newType;
-    optionValue = newValue;
-    return;
+	optionType = newType;
+	optionValue = newValue;
+	return;
 }
 
 void Option::changeValue(double newValue){
-    optionValue = newValue;
-    return;
+	optionValue = newValue;
+	return;
 }
 
 int Option::getOptionType(){
-    return optionType;
+	return optionType;
 }
 
 double Option::getOptionValue(){
-    return optionValue;
+	return optionValue;
 }
 
 Rune::Rune(Option option1, bool isitVelk, Option option2){
-    runeOptions[RUNE_NORMAL] = option1;
-    isVelk = isitVelk;
-    if(isVelk) runeOptions[RUNE_VELK] = option2;
-    return;
+	runeOptions[RUNE_NORMAL] = option1;
+	isVelk = isitVelk;
+	if(isVelk) runeOptions[RUNE_VELK] = option2;
+	return;
 }
 
 Rune::~Rune(){
-    return;
+	return;
 }

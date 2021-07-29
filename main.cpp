@@ -34,16 +34,16 @@ WTexture gBgTile;
 TTF_Font* gFont = nullptr;
 
 bool init(){
-    // init flag
-    bool success = true;
+	// init flag
+	bool success = true;
 
-    // initialize SDL
-    if(SDL_Init(SDL_INIT_VIDEO) < 0){
-        std::cout << "Failed to initialize SDL! SDL Error: " << SDL_GetError() << std::endl;
-        success = false;
-    }
-    else{
-        //Create window
+	// initialize SDL
+	if(SDL_Init(SDL_INIT_VIDEO) < 0){
+		std::cout << "Failed to initialize SDL! SDL Error: " << SDL_GetError() << std::endl;
+		success = false;
+	}
+	else{
+		//Create window
 		gWindow = SDL_CreateWindow("King's Raid Hero Builder", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 		if(gWindow == nullptr){
 			printf("Window could not be created! SDL Error: %s\n", SDL_GetError());
@@ -59,7 +59,7 @@ bool init(){
 			else{
 				//Initialize renderer color
 				SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
-                SDL_SetRenderDrawBlendMode(gRenderer, SDL_BLENDMODE_NONE);
+				SDL_SetRenderDrawBlendMode(gRenderer, SDL_BLENDMODE_NONE);
 
 				//Initialize PNG loading
 				int imgFlags = IMG_INIT_PNG;
@@ -67,22 +67,22 @@ bool init(){
 					printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
 					success = false;
 				}
-                if(TTF_Init() != 0){
-                    printf("SDL_ttf could not initialize! SDL_ttf error: %s\n", TTF_GetError());
-                    success = false;
-                }
-                else{
-                    // initialize TTF loading
-                    gFont = TTF_OpenFont("NanumGothicExtraBold.ttf", 20);
-                    if(gFont == nullptr){
-                        printf("SDL_ttf failed to open! SDL_ttf error: %s\n", TTF_GetError());
-                        success = false;
-                    }
-                }
+				if(TTF_Init() != 0){
+					printf("SDL_ttf could not initialize! SDL_ttf error: %s\n", TTF_GetError());
+					success = false;
+				}
+				else{
+					// initialize TTF loading
+					gFont = TTF_OpenFont("NanumGothicExtraBold.ttf", 20);
+					if(gFont == nullptr){
+						printf("SDL_ttf failed to open! SDL_ttf error: %s\n", TTF_GetError());
+						success = false;
+					}
+				}
 			}
 		}
-    }
-    return success;
+	}
+	return success;
 }
 
 bool loadMedia(){
@@ -106,21 +106,21 @@ bool loadMedia(){
 }
 
 void close(){
-    // destroy texture
-    for(int i = 0; i < BORDER_TOTAL; i++){
-        gBorders[i].free();
-    }
-    gBgTile.free();
+	// destroy texture
+	for(int i = 0; i < BORDER_TOTAL; i++){
+		gBorders[i].free();
+	}
+	gBgTile.free();
 
-    // destroy resources
-    SDL_DestroyRenderer(gRenderer);
-    gRenderer = nullptr;
-    SDL_DestroyWindow(gWindow);
-    gWindow = nullptr;
-    // quit systems
-    IMG_Quit();
-    SDL_Quit();
-    return;
+	// destroy resources
+	SDL_DestroyRenderer(gRenderer);
+	gRenderer = nullptr;
+	SDL_DestroyWindow(gWindow);
+	gWindow = nullptr;
+	// quit systems
+	IMG_Quit();
+	SDL_Quit();
+	return;
 }
 
 SDL_Texture* loadTexture(std::string path){
@@ -134,7 +134,7 @@ SDL_Texture* loadTexture(std::string path){
 	}
 	else{
 		//Create texture from surface pixels
-        newTexture = SDL_CreateTextureFromSurface(gRenderer, loadedSurface);
+		newTexture = SDL_CreateTextureFromSurface(gRenderer, loadedSurface);
 		if(newTexture == nullptr){
 			printf("Unable to create texture from %s! SDL Error: %s\n", path.c_str(), SDL_GetError());
 		}
@@ -148,63 +148,63 @@ SDL_Texture* loadTexture(std::string path){
 
 // testing purposes only
 void test(){
-    Hero kara(CLASS_MECHANIC);
-    printf("%f\n", kara.getBaseStat(OPTION_ATK));
-    Gear heavenshatterer;
-    heavenshatterer.changeGearType(GEAR_WEAPON);
-    kara.changeGear(GEAR_WEAPON, heavenshatterer);
-    printf("%f\n", kara.getStat(OPTION_ATK));
-    kara.changeGearOption(GEAR_WEAPON, 0, Option(OPTION_PTOUGH, 400.0));
-    printf("%f\n%f\n", kara.getStat(OPTION_PTOUGH), actualStat(OPTION_PTOUGH, 400.0));
-    return;
+	Hero kara(CLASS_MECHANIC);
+	printf("%f\n", kara.getBaseStat(OPTION_ATK));
+	Gear heavenshatterer;
+	heavenshatterer.changeGearType(GEAR_WEAPON);
+	kara.changeGear(GEAR_WEAPON, heavenshatterer);
+	printf("%f\n", kara.getStat(OPTION_ATK));
+	kara.changeGearOption(GEAR_WEAPON, 0, Option(OPTION_PTOUGH, 400.0));
+	printf("%f\n%f\n", kara.getStat(OPTION_PTOUGH), actualStat(OPTION_PTOUGH, 400.0));
+	return;
 }
 // remember to delete when prod is up
 
 int main(int argc, char* argv[]){
-    // start up SDL and create window
-    if(!init()){
-        std::cout << "Failed to initialize!\n";
-        return -1;
-    }
-    // load media
-    if(!loadMedia()){
-        std::cout << "Failed to load media!\n";
-        return -1;
-    }
+	// start up SDL and create window
+	if(!init()){
+		std::cout << "Failed to initialize!\n";
+		return -1;
+	}
+	// load media
+	if(!loadMedia()){
+		std::cout << "Failed to load media!\n";
+		return -1;
+	}
 
-    // loop flag
-    bool quit = false;
-    // event handler
-    SDL_Event e;
+	// loop flag
+	bool quit = false;
+	// event handler
+	SDL_Event e;
 
-    while(!quit){
-        // input
-        while(SDL_PollEvent(&e) != 0){
-            // user requests exit
-            if(e.type == SDL_QUIT){
-                quit = true;
-            }
-        }
-        // logic
-        // render
-        SDL_RenderClear(gRenderer);
-        // render texture to screen
-        // background tiles
-        for(int i = 0; i <= SCREEN_WIDTH / TILE_SIZE; i++){
-            for(int j = 0; j <= SCREEN_HEIGHT / TILE_SIZE; j++){
-                gBgTile.render(TILE_SIZE * i, TILE_SIZE * j, gRenderer);
-            }
-        }
-        gBorders[LR_BORDER].render(0, 0, gRenderer);
-        gBorders[LR_BORDER].renderEx(SCREEN_WIDTH - gBorders[LR_BORDER].getWidth(), 0,  gRenderer, nullptr, 0.0, nullptr, SDL_FLIP_VERTICAL);
-        gBorders[TOP_BORDER].render(0, 0, gRenderer);
+	while(!quit){
+		// input
+		while(SDL_PollEvent(&e) != 0){
+			// user requests exit
+			if(e.type == SDL_QUIT){
+				quit = true;
+			}
+		}
+		// logic
+		// render
+		SDL_RenderClear(gRenderer);
+		// render texture to screen
+		// background tiles
+		for(int i = 0; i <= SCREEN_WIDTH / TILE_SIZE; i++){
+			for(int j = 0; j <= SCREEN_HEIGHT / TILE_SIZE; j++){
+				gBgTile.render(TILE_SIZE * i, TILE_SIZE * j, gRenderer);
+			}
+		}
+		gBorders[LR_BORDER].render(0, 0, gRenderer);
+		gBorders[LR_BORDER].renderEx(SCREEN_WIDTH - gBorders[LR_BORDER].getWidth(), 0,  gRenderer, nullptr, 0.0, nullptr, SDL_FLIP_VERTICAL);
+		gBorders[TOP_BORDER].render(0, 0, gRenderer);
 
-        //Update screen
-        SDL_RenderPresent(gRenderer);
-    }
+		//Update screen
+		SDL_RenderPresent(gRenderer);
+	}
 
-    // free resources and close SDL
-    close();
-    test();
-    return 0;
+	// free resources and close SDL
+	close();
+	test();
+	return 0;
 }
