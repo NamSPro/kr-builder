@@ -35,7 +35,6 @@ const std::map <int, double> HERO_BASE_TEMPLATES[CLASS_TOTAL] = {
 class Hero{
 public:
     Hero(int heroClass = CLASS_NONE);
-    Hero(std::map <int, double> options);
     ~Hero();
     // entire piece update and point update 
     bool changeGear(int position, Gear newGear);
@@ -43,12 +42,13 @@ public:
     bool changeGearOption(int position, int optionPosition, int newOption, double newValue);
     // bool updateGearRune(int position, int runePosition, Rune newRune);
     // bool updateGearEnchant(int position, int enchantPosition, Option newOption);
-    // called whenever an update takes place
-    void updateInfo();
     // getter functions
     double getStat(int option);
     double getBaseStat(int option);
 private:
+    Hero(std::map <int, double> options);
+    // called whenever an update takes place
+    void updateInfo();
     Gear heroGears[GEAR_TOTAL];
     Option heroSheet[OPTION_TOTAL];
     Option heroBaseSheet[OPTION_TOTAL];

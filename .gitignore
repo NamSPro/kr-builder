@@ -1,8 +1,5 @@
 .vscode
 .git
-sdl
 build
 main.exe
 main
-CMakeLists.txt
-lib*

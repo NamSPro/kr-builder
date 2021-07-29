@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <cstdio>
 #include "hero.h"
+#include "percentage.h"
 
 Hero::Hero(int heroClass){
     switch (heroClass){
@@ -14,13 +15,6 @@ Hero::Hero(int heroClass){
             *this = Hero(HERO_BASE_TEMPLATES[heroClass]);
             break;
         }
-    }
-    return;
-}
-
-Hero::Hero(std::map <int, double> options){
-    for(auto it = options.begin(); it != options.end(); it++){
-        heroBaseSheet[it->first].changeOption(it->first, it->second);
     }
     return;
 }
@@ -49,6 +43,23 @@ bool Hero::changeGearOption(int position, int optionPosition, int newOption, dou
     bool success = heroGears[position].changeOption(optionPosition, newOption, newValue);
     if(success) updateInfo();
     return success;
+}
+
+
+double Hero::getStat(int option){
+    return heroSheet[option].getOptionValue();
+}
+
+double Hero::getBaseStat(int option){
+    return heroBaseSheet[option].getOptionValue();
+}
+
+
+Hero::Hero(std::map <int, double> options){
+    for(auto it = options.begin(); it != options.end(); it++){
+        heroBaseSheet[it->first].changeOption(it->first, it->second);
+    }
+    return;
 }
 
 void Hero::updateInfo(){
@@ -84,14 +95,9 @@ void Hero::updateInfo(){
             heroSheet[option].changeValue(flatValue * (1.0 + multiplier));
             continue;
         }
+		else{
+			heroSheet[option].changeValue(actualStat(option, heroSheet[option].getOptionValue()));
+		}
     }
     return;
-}
-
-double Hero::getStat(int option){
-    return heroSheet[option].getOptionValue();
-}
-
-double Hero::getBaseStat(int option){
-    return heroBaseSheet[option].getOptionValue();
 }

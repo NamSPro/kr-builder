@@ -7,6 +7,7 @@
 #include "lib/enums.h"
 #include "lib/hero.h"
 #include "lib/texture_wrapper.h"
+#include "lib/percentage.h"
 
 const int SCREEN_WIDTH = 1280;
 const int HALF_SCREEN_WIDTH = 640;
@@ -153,8 +154,8 @@ void test(){
     heavenshatterer.changeGearType(GEAR_WEAPON);
     kara.changeGear(GEAR_WEAPON, heavenshatterer);
     printf("%f\n", kara.getStat(OPTION_ATK));
-    kara.changeGearOption(GEAR_WEAPON, 0, Option(OPTION_ATK, 12.0));
-    printf("%f", kara.getStat(OPTION_ATK));
+    kara.changeGearOption(GEAR_WEAPON, 0, Option(OPTION_PTOUGH, 400.0));
+    printf("%f\n%f\n", kara.getStat(OPTION_PTOUGH), actualStat(OPTION_PTOUGH, 400.0));
     return;
 }
 // remember to delete when prod is up
