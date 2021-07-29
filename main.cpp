@@ -196,7 +196,7 @@ int main(int argc, char* argv[]){
 			}
 		}
 		gBorders[LR_BORDER].render(0, 0, gRenderer);
-		gBorders[LR_BORDER].renderEx(SCREEN_WIDTH - gBorders[LR_BORDER].getWidth(), 0,  gRenderer, nullptr, 0.0, nullptr, SDL_FLIP_VERTICAL);
+		gBorders[LR_BORDER].renderEx(SCREEN_WIDTH - gBorders[LR_BORDER].getWidth(), 0,  gRenderer, nullptr, 0.0, nullptr, SDL_FLIP_HORIZONTAL);
 		gBorders[TOP_BORDER].render(0, 0, gRenderer);
 
 		//Update screen

@@ -75,6 +75,18 @@ void Hero::updateInfo(){
 			double currentAtk = heroTempSheet[OPTION_ATK].getOptionValue();
 			heroTempSheet[OPTION_ATK].changeValue(currentAtk + heroGears[it].getStatBoost());
 		}
+		if(heroGears[it].getGearType() == GEAR_ARMOR || heroGears[it].getAccessoryType() == ACCESSORY_BRACELET){
+			double currentPdef = heroTempSheet[OPTION_PDEF].getOptionValue();
+			heroTempSheet[OPTION_PDEF].changeValue(currentPdef + heroGears[it].getStatBoost());
+		}
+		if(heroGears[it].getGearType() == GEAR_SECONDARY || heroGears[it].getAccessoryType() == ACCESSORY_NECKLACE){
+			double currentMdef = heroTempSheet[OPTION_MDEF].getOptionValue();
+			heroTempSheet[OPTION_MDEF].changeValue(currentMdef + heroGears[it].getStatBoost());
+		}
+		if(heroGears[it].getGearType() == GEAR_ORB || heroGears[it].getAccessoryType() == ACCESSORY_RING){
+			double currentHp = heroTempSheet[OPTION_HP].getOptionValue();
+			heroTempSheet[OPTION_HP].changeValue(currentHp + heroGears[it].getStatBoost());
+		}
 		for(int optionCount = 0; optionCount < GEAR_OPTIONS_TOTAL; optionCount++){
 			Option currentOption = heroGears[it].getOption(optionCount);
 			if(currentOption.getOptionType() == OPTION_NONE){
