@@ -71,41 +71,65 @@ void Hero::updateInfo(){
 	// finding the modifiers
 	for(int it = GEAR_WEAPON; it < GEAR_TOTAL; it++){
 		if(it == GEAR_ARTIFACT || heroGears[it].getGearType() == GEAR_NONE) continue; // again, hardcoded
+
 		if(heroGears[it].getGearType() == GEAR_WEAPON || heroGears[it].getAccessoryType() == ACCESSORY_EARRINGS){
-			double currentAtk = heroTempSheet[OPTION_ATK].getOptionValue();
-			heroTempSheet[OPTION_ATK].changeValue(currentAtk + heroGears[it].getStatBoost());
+			heroTempSheet[OPTION_ATK].modifyValue(heroGears[it].getStatBoost());
 		}
 		if(heroGears[it].getGearType() == GEAR_ARMOR || heroGears[it].getAccessoryType() == ACCESSORY_BRACELET){
-			double currentPdef = heroTempSheet[OPTION_PDEF].getOptionValue();
-			heroTempSheet[OPTION_PDEF].changeValue(currentPdef + heroGears[it].getStatBoost());
+			heroTempSheet[OPTION_PDEF].modifyValue(heroGears[it].getStatBoost());
 		}
 		if(heroGears[it].getGearType() == GEAR_SECONDARY || heroGears[it].getAccessoryType() == ACCESSORY_NECKLACE){
-			double currentMdef = heroTempSheet[OPTION_MDEF].getOptionValue();
-			heroTempSheet[OPTION_MDEF].changeValue(currentMdef + heroGears[it].getStatBoost());
+			heroTempSheet[OPTION_MDEF].modifyValue(heroGears[it].getStatBoost());
 		}
 		if(heroGears[it].getGearType() == GEAR_ORB || heroGears[it].getAccessoryType() == ACCESSORY_RING){
-			double currentHp = heroTempSheet[OPTION_HP].getOptionValue();
-			heroTempSheet[OPTION_HP].changeValue(currentHp + heroGears[it].getStatBoost());
+			heroTempSheet[OPTION_HP].modifyValue(heroGears[it].getStatBoost());
 		}
+
 		for(int optionCount = 0; optionCount < GEAR_OPTIONS_TOTAL; optionCount++){
 			Option currentOption = heroGears[it].getOption(optionCount);
 			if(currentOption.getOptionType() == OPTION_NONE){
 				continue;
 			}
 			int currentOptionType = currentOption.getOptionType();
-			double currentValue = heroSheet[currentOptionType].getOptionValue();
-			heroSheet[currentOptionType].changeValue(currentValue + currentOption.getOptionValue());
+			heroSheet[currentOptionType].modifyValue(currentOption.getOptionValue());
+		}
+
+		for(int optionCount = 0; optionCount < GEAR_RUNES_TOTAL; optionCount++){
+			Rune currentRune = heroGears[it].getRune(optionCount);
+			for(int runeOptionCount = 0; runeOptionCount < RUNE_OPTIONS_TOTAL; runeOptionCount++){
+				Option currentOption = currentRune.getRuneOption(runeOptionCount);
+				if(currentOption.getOptionType() == OPTION_NONE){
+					continue;
+				}
+				int currentOptionType = currentOption.getOptionType();
+				heroSheet[currentOptionType].modifyValue(currentOption.getOptionValue());
+			}
+		}
+
+		for(int optionCount = 0; optionCount < GEAR_ENCHANTS_TOTAL; optionCount++){
+			Option currentOption = heroGears[it].getEnchant(optionCount);
+			if(currentOption.getOptionType() == OPTION_NONE){
+				continue;
+			}
+			int currentOptionType = currentOption.getOptionType();
+			heroSheet[currentOptionType].modifyValue(currentOption.getOptionValue());
 		}
 	}
+
 	// dividing the general defensive lines (DEF, TOUGH, DODGE...) to their specific counterparts
-	// getting the final numbers
+	// and getting the final numbers
 	for(int option = OPTION_ATK; option < OPTION_TOTAL; option++){
-		// continue if general option or divide here then continue
+		if(option == OPTION_BLOCK || option == OPTION_CRIT_RES || option == OPTION_DEF || option == OPTION_DODGE || option == OPTION_BLOCK_DEF || option == OPTION_TOUGH){
+			double valueToAdd = heroSheet[option].getOptionValue();
+			heroSheet[option + 1].modifyValue(valueToAdd); // general defensive +1 always equal phys part
+			heroSheet[option + 2].modifyValue(valueToAdd); // general defensive +2 always equal mag part
+			heroSheet[option].changeValue(0.0);
+			continue;
+		}
 		if(option == OPTION_ATK || option == OPTION_HP || option == OPTION_PDEF || option == OPTION_MDEF){
 			double flatValue = heroTempSheet[option].getOptionValue();
 			double multiplier = heroSheet[option].getOptionValue() / 100.0;
 			heroSheet[option].changeValue(flatValue * (1.0 + multiplier));
-			continue;
 		}
 		else{
 			heroSheet[option].changeValue(actualStat(option, heroSheet[option].getOptionValue()));

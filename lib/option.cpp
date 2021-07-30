@@ -24,6 +24,11 @@ void Option::changeValue(double newValue){
 	return;
 }
 
+void Option::modifyValue(double modifier){
+	optionValue += modifier;
+	return;
+}
+
 int Option::getOptionType(){
 	return optionType;
 }
@@ -41,4 +46,8 @@ Rune::Rune(Option option1, bool isitVelk, Option option2){
 
 Rune::~Rune(){
 	return;
+}
+
+Option Rune::getRuneOption(int position){
+	return runeOptions[position];
 }

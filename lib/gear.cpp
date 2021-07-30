@@ -38,23 +38,13 @@ bool Gear::changeOption(int position, Option newOption){
 }
 
 bool Gear::changeOption(int position, int newOption, double newValue){
-	if((gearCondition == GEAR_TM || gearType == GEAR_TREASURE) && position > 1){
-		printf("Invalid option number to be changed!\n");
-		return false;
-	}
-	if(gearCondition == GEAR_UNIQUE && (gearType == GEAR_WEAPON || gearType == GEAR_ARTIFACT)){
-		printf("UWs and artifacts cannot have additional options!\n");
-		return false;
-	}
-	gearOptions[position].changeOption(newOption, newValue);
-	return true;
+	return changeOption(position, Option(newOption, newValue));
 };
 
 bool Gear::changeOptionValue(int position, double newValue){
 	return changeOption(position, gearOptions[position].getOptionType(), newValue);
 }
 
-/*
 bool Gear::changeRune(int position, Rune newRune){
 	if(gearType != GEAR_WEAPON && gearType != GEAR_ARMOR && gearType != GEAR_SECONDARY){
 		printf("Gears on the right cannot have runes!\n");
@@ -80,7 +70,11 @@ bool Gear::changeEnchant(int position, Option newOption){
 	gearEnchants[position] = newOption;
 	return true;
 }
-*/
+
+bool Gear::changeEnchant(int position, int newOption, double newValue){
+	return changeEnchant(position, Option(newOption, newValue));
+}
+
 int Gear::getGearType(){
 	return gearType;
 }
@@ -95,4 +89,12 @@ int Gear::getStatBoost(){
 
 Option Gear::getOption(int position){
 	return gearOptions[position];
+}
+
+Rune Gear::getRune(int position){
+	return gearRunes[position];
+}
+
+Option Gear::getEnchant(int position){
+	return gearEnchants[position];
 }

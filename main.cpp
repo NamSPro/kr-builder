@@ -156,6 +156,8 @@ void test(){
 	printf("%f\n", kara.getStat(OPTION_ATK));
 	kara.changeGearOption(GEAR_WEAPON, 0, Option(OPTION_PTOUGH, 400.0));
 	printf("%f\n%f\n", kara.getStat(OPTION_PTOUGH), actualStat(OPTION_PTOUGH, 400.0));
+	kara.changeGearOption(GEAR_WEAPON, 1, Option(OPTION_TOUGH, 100.0));
+	printf("%f\n", kara.getStat(OPTION_PTOUGH));
 	return;
 }
 // remember to delete when prod is up

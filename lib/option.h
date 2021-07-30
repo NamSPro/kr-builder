@@ -59,7 +59,8 @@ public:
 	~Option();
 	// setter functions
 	void changeOption(int newType, double newValue);
-	void changeValue(double newValue);
+	void changeValue(double newValue); // change to a specific number
+	void modifyValue(double modifier); // add with modifier
 
 	// getter functions
 	int getOptionType();
@@ -73,6 +74,9 @@ class Rune{
 public:
 	Rune(Option option1 = Option(), bool isitVelk = false, Option option2 = Option());
 	~Rune();
+
+	// getter functions
+	Option getRuneOption(int position);
 private:
 	Option runeOptions[RUNE_OPTIONS_TOTAL];
 	bool isVelk;

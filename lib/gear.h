@@ -60,14 +60,17 @@ public:
 	bool changeOption(int position, Option newOption);
 	bool changeOption(int position, int newOption, double newValue);
 	bool changeOptionValue(int position, double newValue);
-	// bool changeRune(int position, Rune newRune);
-	// bool changeEnchant(int position, Option newOption);
+	bool changeRune(int position, Rune newRune);
+	bool changeEnchant(int position, Option newOption);
+	bool changeEnchant(int position, int newOption, double newValue);
 
 	// getter functions
 	int getGearType();
 	int getAccessoryType();
 	int getStatBoost();
 	Option getOption(int position);
+	Rune getRune(int position);
+	Option getEnchant(int position);
 private:
 	// denotes the position and accessory type
 	// generally accessoryType should be ACCESSORY_NONE unless gearType is GEAR_ACCESSORY
