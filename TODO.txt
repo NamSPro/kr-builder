@@ -1,0 +1,12 @@
+- Find out flat stats for gear, and a way to organize them, *and* a way to rig them into gear.h
+	+ Let's see...
+	+ T8 tank sword: 25580 - 28138 - 30696 - 33255 - 35813 - 38371
+	+ T7 tank sword: 20480 - 22528 - 24576 - 26624 - 28672 - 30720
+	+ T6 tank sword: 13756 - 15132 - 16508 - 17883 - 19259 - 20635 ATK
+	+ 10.0029% increase per star, relative to 0*
+	+ T8 tank heavy: 17052 - 18758 - 21316 - 24726 - 28989 - 34105 PDEF
+	+ T7 tank heavy: 13625
+	+ T6 tank heavy: 09148
+	+ if 0* is x, 5* will be 2x, thus placing T8 heavy 0* in between 17052.25 and 17052.5
+- Add test suites
+- Oh right... set bonuses...
