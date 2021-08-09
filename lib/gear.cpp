@@ -8,7 +8,6 @@ Gear::Gear(){
 	gearType = GEAR_NONE;
 	accessoryType = ACCESSORY_NONE;
 	gearCondition = GEAR_UNTIERED;
-	isReclaimed = false;
 	starLevel = STAR_0STAR;
 	statBoost = 100; // hardcoded for testing
 	return;
