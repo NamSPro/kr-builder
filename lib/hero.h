@@ -8,20 +8,7 @@
 #include <map>
 #include "gear.h"
 
-// HERO_CLASS enum
-enum HERO_CLASS{
-	CLASS_NONE,
-	CLASS_KNIGHT,
-	CLASS_WARRIOR,
-	CLASS_ARCHER,
-	CLASS_ASSASSIN,
-	CLASS_MECHANIC,
-	CLASS_WIZARD,
-	CLASS_PRIEST,
-	CLASS_TOTAL
-};
-
-const std::map <int, double> HERO_BASE_TEMPLATES[CLASS_TOTAL] = {
+const std::map <int, double> HERO_BASE_TEMPLATES[HERO_CLASS_TOTAL] = {
 	{},
 	{{OPTION_HP, 1706672.0}, {OPTION_ATK, 19792.0}, {OPTION_PDEF, 8792.0}, {OPTION_MDEF, 6840.0}},
 	{{OPTION_HP, 1449520.0}, {OPTION_ATK, 22488.0}, {OPTION_PDEF, 7328.0}, {OPTION_MDEF, 8792.0}},
@@ -50,7 +37,7 @@ private:
 	Hero(std::map <int, double> options);
 	// called whenever an update takes place
 	void updateInfo();
-	Gear heroGears[GEAR_TOTAL];
+	Gear heroGears[GEAR_TYPE_TOTAL];
 	Option heroSheet[OPTION_TOTAL];
 	Option heroBaseSheet[OPTION_TOTAL];
 };

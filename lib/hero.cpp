@@ -69,7 +69,7 @@ void Hero::updateInfo(){
 		heroSheet[option] = Option();
 	}
 	// finding the modifiers
-	for(int it = GEAR_WEAPON; it < GEAR_TOTAL; it++){
+	for(int it = GEAR_WEAPON; it < GEAR_TYPE_TOTAL; it++){
 		if(it == GEAR_ARTIFACT || heroGears[it].getGearType() == GEAR_NONE) continue; // again, hardcoded
 
 		if(heroGears[it].getGearType() == GEAR_WEAPON || heroGears[it].getAccessoryType() == ACCESSORY_EARRINGS){
