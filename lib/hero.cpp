@@ -12,7 +12,7 @@ Hero::Hero(int heroClass){
 			break;
 		}
 		default:{
-			*this = Hero(HERO_BASE_TEMPLATES[heroClass]);
+			*this = Hero(heroClass, HERO_BASE_TEMPLATES[heroClass]);
 			break;
 		}
 	}
@@ -45,6 +45,35 @@ bool Hero::changeGearOption(int position, int optionPosition, int newOption, dou
 	return success;
 }
 
+bool Hero::changeGearOptionValue(int position, int optionPosition, double newValue){
+	bool success = heroGears[position].changeOptionValue(optionPosition, newValue);
+	if(success) updateInfo();
+	return success;
+}
+
+bool Hero::changeGearRune(int position, int runePosition, Rune newRune){
+	bool success = heroGears[position].changeRune(runePosition, newRune);
+	if(success) updateInfo();
+	return success;
+}
+
+bool Hero::changeGearEnchant(int position, int enchantPosition, Option newOption){
+	bool success = heroGears[position].changeEnchant(enchantPosition, newOption);
+	if(success) updateInfo();
+	return success;
+}
+
+bool Hero::changeGearEnchant(int position, int enchantPosition, int newOption, double newValue){
+	bool success = heroGears[position].changeEnchant(enchantPosition, newOption, newValue);
+	if(success) updateInfo();
+	return success;
+}
+
+bool Hero::changeGearEnchantValue(int position, int enchantPosition, double newValue){
+	bool success = heroGears[position].changeEnchantValue(enchantPosition, newValue);
+	if(success) updateInfo();
+	return success;
+}
 
 double Hero::getStat(int option){
 	return heroSheet[option].getOptionValue();
@@ -55,9 +84,12 @@ double Hero::getBaseStat(int option){
 }
 
 
-Hero::Hero(std::map <int, double> options){
+Hero::Hero(int heroClass, std::map <int, double> options){
 	for(auto it = options.begin(); it != options.end(); it++){
 		heroBaseSheet[it->first].changeOption(it->first, it->second);
+	}
+	for(int it = GEAR_WEAPON; it < GEAR_TYPE_TOTAL; it++){
+		heroGears[it] = Gear(heroClass);
 	}
 	return;
 }

@@ -149,15 +149,23 @@ SDL_Texture* loadTexture(std::string path){
 // testing purposes only
 void test(){
 	Hero kara(CLASS_MECHANIC);
-	printf("%f\n", kara.getBaseStat(OPTION_ATK));
-	Gear heavenshatterer;
+	printf("Base ATK: %f\n", kara.getBaseStat(OPTION_ATK));
+	Gear heavenshatterer(CLASS_MECHANIC);
+	heavenshatterer.changeGearCondition(GEAR_UNIQUE);
 	heavenshatterer.changeGearType(GEAR_WEAPON);
 	kara.changeGear(GEAR_WEAPON, heavenshatterer);
-	printf("%f\n", kara.getStat(OPTION_ATK));
-	kara.changeGearOption(GEAR_WEAPON, 0, Option(OPTION_PTOUGH, 400.0));
-	printf("%f\n%f\n", kara.getStat(OPTION_PTOUGH), actualStat(OPTION_PTOUGH, 400.0));
-	kara.changeGearOption(GEAR_WEAPON, 1, Option(OPTION_TOUGH, 100.0));
-	printf("%f\n", kara.getStat(OPTION_PTOUGH));
+	printf("ATK with 0* UW: %f\n", kara.getStat(OPTION_ATK));
+	Gear manti(CLASS_MECHANIC);
+	manti.changeGearCondition(GEAR_TIER8);
+	manti.changeGearType(GEAR_ACCESSORY);
+	manti.changeAccessoryType(ACCESSORY_EARRINGS);
+	kara.changeGear(GEAR_ACCESSORY, manti);
+	printf("ATK with 0* UW and manti earrings: %f\n", kara.getStat(OPTION_ATK));
+
+	Rune pureAtk = Rune(RUNE_ATK);
+	heavenshatterer.changeRune(0, pureAtk);
+	kara.changeGear(GEAR_WEAPON, heavenshatterer);
+	printf("ATK with 1 ATK rune: %f\n", kara.getStat(OPTION_ATK));
 	return;
 }
 // remember to delete when prod is up

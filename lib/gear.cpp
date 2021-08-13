@@ -4,12 +4,12 @@
 #include <cstdio>
 #include "gear.h"
 
-Gear::Gear(){
+Gear::Gear(int heroClass){
+	equippableClass = heroClass;
 	gearType = GEAR_NONE;
 	accessoryType = ACCESSORY_NONE;
 	gearCondition = GEAR_UNTIERED;
 	starLevel = STAR_0STAR;
-	statBoost = 100; // hardcoded for testing
 	return;
 }
 
@@ -20,6 +20,21 @@ Gear::~Gear(){
 void Gear::changeGearType(int newType, int newAccessoryType){
 	gearType = newType;
 	accessoryType = newAccessoryType;
+	return;
+}
+
+void Gear::changeAccessoryType(int newAccessoryType){
+	changeGearType(GEAR_ACCESSORY, newAccessoryType);
+	return;
+}
+
+void Gear::changeGearCondition(int newCondition){
+	gearCondition = newCondition;
+	return;
+}
+
+void Gear::changeStarLevel(int newStarLevel){
+	starLevel = newStarLevel;
 	return;
 }
 
@@ -74,6 +89,10 @@ bool Gear::changeEnchant(int position, int newOption, double newValue){
 	return changeEnchant(position, Option(newOption, newValue));
 }
 
+bool Gear::changeEnchantValue(int position, double newValue){
+	return changeEnchant(position, gearEnchants[position].getOptionType(), newValue);
+}
+
 int Gear::getGearType(){
 	return gearType;
 }
@@ -82,8 +101,26 @@ int Gear::getAccessoryType(){
 	return accessoryType;
 }
 
-int Gear::getStatBoost(){
-	return statBoost;
+double Gear::getStatBoost(){
+	if(gearCondition == GEAR_UNIQUE){
+		if(gearType == GEAR_WEAPON) return UW_STATS[equippableClass][starLevel];
+		else return UT_STATS[starLevel];
+	}
+	if(gearType == GEAR_ACCESSORY){
+		return GEAR_ACCESSORY_STATS[gearCondition][accessoryType][starLevel];
+	}
+	if(gearType == GEAR_ORB){
+		return GEAR_ACCESSORY_STATS[gearCondition][ACCESSORY_RING][starLevel];
+	}
+	return GEAR_BASE_STATS[gearCondition][equippableClass][gearType][starLevel];
+}
+
+int Gear::getCondition(){
+	return gearCondition;
+}
+
+int Gear::getStarLevel(){
+	return starLevel;
 }
 
 Option Gear::getOption(int position){

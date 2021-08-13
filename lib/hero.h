@@ -27,14 +27,17 @@ public:
 	bool changeGear(int position, Gear newGear);
 	bool changeGearOption(int position, int optionPosition, Option newOption);
 	bool changeGearOption(int position, int optionPosition, int newOption, double newValue);
-	// bool updateGearRune(int position, int runePosition, Rune newRune);
-	// bool updateGearEnchant(int position, int enchantPosition, Option newOption);
+	bool changeGearOptionValue(int position, int optionPosition, double newValue);
+	bool changeGearRune(int position, int runePosition, Rune newRune);
+	bool changeGearEnchant(int position, int enchantPosition, Option newOption);
+	bool changeGearEnchant(int position, int enchantPosition, int newOption, double newValue);
+	bool changeGearEnchantValue(int position, int enchantPosition, double newValue);
 
 	// getter functions
 	double getStat(int option);
 	double getBaseStat(int option);
 private:
-	Hero(std::map <int, double> options);
+	Hero(int heroClass, std::map <int, double> options);
 	// called whenever an update takes place
 	void updateInfo();
 	Gear heroGears[GEAR_TYPE_TOTAL];

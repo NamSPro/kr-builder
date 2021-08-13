@@ -1,5 +1,4 @@
 - Find out flat stats for gear, and a way to organize them, *and* a way to rig them into gear.h
-	+ 4 dimensions array
-	+ const double FLAT_STAT[GEAR_CONDITION_TOTAL][HERO_CLASS_TOTAL][GEAR_TYPE_TOTAL][GEAR_STAR_TOTAL]
+	+ testing phase
 - Add test suites
 - Oh right... set bonuses...

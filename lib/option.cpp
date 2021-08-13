@@ -48,6 +48,17 @@ Rune::~Rune(){
 	return;
 }
 
+std::string Rune::getRuneName(){
+	return runeName;
+}
+
 Option Rune::getRuneOption(int position){
 	return runeOptions[position];
+}
+
+void Rune::findRuneName(){
+	if(!isVelk){
+		return;
+	}
+	return;
 }

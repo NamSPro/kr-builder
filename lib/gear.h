@@ -32,25 +32,34 @@ const int GEAR_ENCHANTS_TOTAL = 3;
 
 class Gear{
 public:
-	Gear();
+	Gear(int heroClass = CLASS_NONE);
 	~Gear();
 	// setter functions
 	void changeGearType(int newType, int newAccessoryType = ACCESSORY_NONE);
+	void changeAccessoryType(int newAccessoryType);
+	void changeGearCondition(int newCondition);
+	void changeStarLevel(int newStarLevel);
 	bool changeOption(int position, Option newOption);
 	bool changeOption(int position, int newOption, double newValue);
 	bool changeOptionValue(int position, double newValue);
 	bool changeRune(int position, Rune newRune);
 	bool changeEnchant(int position, Option newOption);
 	bool changeEnchant(int position, int newOption, double newValue);
+	bool changeEnchantValue(int position, double newValue);
 
 	// getter functions
 	int getGearType();
 	int getAccessoryType();
-	int getStatBoost();
+	double getStatBoost();
+	int getCondition();
+	int getStarLevel();
 	Option getOption(int position);
 	Rune getRune(int position);
 	Option getEnchant(int position);
 private:
+	// denotes the class this gear is intended for
+	int equippableClass;
+
 	// denotes the position and accessory type
 	// generally accessoryType should be ACCESSORY_NONE unless gearType is GEAR_ACCESSORY
 	int gearType, accessoryType;
@@ -58,9 +67,6 @@ private:
 	// GEAR_TIER(number), GEAR_UNIQUE or GEAR_TM/GEAR_TM_RECLAIMED
 	int gearCondition;
 	int starLevel;
-
-	// this represents flat stats
-	int statBoost;
 
 	// this represents gear options
 	Option gearOptions[GEAR_OPTIONS_TOTAL];
