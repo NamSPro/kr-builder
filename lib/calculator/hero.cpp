@@ -33,6 +33,12 @@ bool Hero::changeGear(int position, Gear newGear){
 	return true;
 }
 
+void Hero::changeGearStarLevel(int position, int newStarLevel){
+	heroGears[position].changeStarLevel(newStarLevel);
+	updateInfo();
+	return;
+}
+
 bool Hero::changeGearOption(int position, int optionPosition, Option newOption){
 	bool success = heroGears[position].changeOption(optionPosition, newOption);
 	if(success) updateInfo();
@@ -105,6 +111,10 @@ void Hero::updateInfo(){
 		if(it == GEAR_ARTIFACT || heroGears[it].getGearType() == GEAR_NONE) continue; // again, hardcoded
 
 		if(heroGears[it].getGearType() == GEAR_WEAPON || heroGears[it].getAccessoryType() == ACCESSORY_EARRINGS){
+			if(heroGears[it].getGearType() == GEAR_WEAPON && heroGears[it].getSoulActivationStatus()){ // SW calculation
+				heroTempSheet[OPTION_ATK].modifyValue(heroGears[it].getSoulAtkStat());
+				heroTempSheet[OPTION_HP].modifyValue(heroGears[it].getSoulHpStat());
+			}
 			heroTempSheet[OPTION_ATK].modifyValue(heroGears[it].getStatBoost());
 		}
 		if(heroGears[it].getGearType() == GEAR_ARMOR || heroGears[it].getAccessoryType() == ACCESSORY_BRACELET){

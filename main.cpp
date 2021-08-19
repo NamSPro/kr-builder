@@ -4,10 +4,9 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
-#include "lib/enums.h"
-#include "lib/hero.h"
+#include "lib/calculator/includer.h"
 #include "lib/texture_wrapper.h"
-#include "lib/percentage.h"
+#include "lib/tests/tests.h"
 
 const int SCREEN_WIDTH = 1280;
 const int HALF_SCREEN_WIDTH = 640;
@@ -145,30 +144,6 @@ SDL_Texture* loadTexture(std::string path){
 
 	return newTexture;
 }
-
-// testing purposes only
-void test(){
-	Hero kara(CLASS_MECHANIC);
-	printf("Base ATK: %f\n", kara.getBaseStat(OPTION_ATK));
-	Gear heavenshatterer(CLASS_MECHANIC);
-	heavenshatterer.changeGearCondition(GEAR_UNIQUE);
-	heavenshatterer.changeGearType(GEAR_WEAPON);
-	kara.changeGear(GEAR_WEAPON, heavenshatterer);
-	printf("ATK with 0* UW: %f\n", kara.getStat(OPTION_ATK));
-	Gear manti(CLASS_MECHANIC);
-	manti.changeGearCondition(GEAR_TIER8);
-	manti.changeGearType(GEAR_ACCESSORY);
-	manti.changeAccessoryType(ACCESSORY_EARRINGS);
-	kara.changeGear(GEAR_ACCESSORY, manti);
-	printf("ATK with 0* UW and manti earrings: %f\n", kara.getStat(OPTION_ATK));
-
-	Rune pureAtk = Rune(RUNE_ATK);
-	heavenshatterer.changeRune(0, pureAtk);
-	kara.changeGear(GEAR_WEAPON, heavenshatterer);
-	printf("ATK with 1 ATK rune: %f\n", kara.getStat(OPTION_ATK));
-	return;
-}
-// remember to delete when prod is up
 
 int main(int argc, char* argv[]){
 	// start up SDL and create window

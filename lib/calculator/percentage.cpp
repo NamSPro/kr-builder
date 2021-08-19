@@ -5,6 +5,10 @@
 #include "percentage.h"
 
 double actualStat(int statType, double value){
+	if(statType > OPTION_MPDMG){ // dmg dealt shenanigans
+		return value;
+	}
+
 	double actual = 0.0;
 
 	if(value == 0.0) actual = 0.0;

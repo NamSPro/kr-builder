@@ -1,5 +1,5 @@
 #OBJS specifies which files to compile as part of the project
-OBJS = main.cpp lib/texture_wrapper.cpp lib/option.cpp lib/gear.cpp lib/hero.cpp lib/percentage.cpp
+OBJS = main.cpp lib/texture_wrapper.cpp lib/calculator/option.cpp lib/calculator/gear.cpp lib/calculator/hero.cpp lib/calculator/percentage.cpp lib/calculator/soul_weapon.cpp lib/tests/tests.h
 
 #CC specifies which compiler we're using
 CC = g++

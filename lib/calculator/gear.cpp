@@ -93,6 +93,35 @@ bool Gear::changeEnchantValue(int position, double newValue){
 	return changeEnchant(position, gearEnchants[position].getOptionType(), newValue);
 }
 
+void Gear::changeSoulActivationStatus(){
+	uwSoul.changeActivationStatus();
+	return;
+}
+
+void Gear::changeSoulAdvLevel(int newLevel){
+	uwSoul.changeAdvLevel(newLevel);
+	return;
+}
+
+void Gear::changeSoulEtherLevel(int newEtherLevel){
+	uwSoul.changeEtherLevel(newEtherLevel);
+	return;
+}
+
+void Gear::changeSoulAtkRollValue(double newValue){
+	uwSoul.changeAtkRollValue(newValue);
+	return;
+}
+
+void Gear::changeSoulAtkBonusValue(double newValue){
+	uwSoul.changeAtkBonusValue(newValue);
+	return;
+}
+
+void Gear::changeSoulHpBonusValue(double newValue){
+	uwSoul.changeHpBonusValue(newValue);
+}
+
 int Gear::getGearType(){
 	return gearType;
 }
@@ -133,4 +162,40 @@ Rune Gear::getRune(int position){
 
 Option Gear::getEnchant(int position){
 	return gearEnchants[position];
+}
+
+bool Gear::getSoulActivationStatus(){
+	return uwSoul.getActivationStatus();
+}
+
+int Gear::getSoulAdvLevel(){
+	return uwSoul.getAdvLevel();
+}
+
+int Gear::getSoulEtherLevel(){
+	return uwSoul.getEtherLevel();
+}
+
+double Gear::getSoulAtkStat(){
+	return uwSoul.getAtkStat(equippableClass);
+}
+
+double Gear::getSoulHpStat(){
+	return uwSoul.getHpStat();
+}
+
+double Gear::getSoulAtkRollValue(){
+	return uwSoul.getAtkRollValue();
+}
+
+double Gear::getSoulHpRollValue(){
+	return uwSoul.getHpRollValue();
+}
+
+double Gear::getSoulAtkBonusValue(){
+	return uwSoul.getAtkBonusValue();
+}
+
+double Gear::getSoulHpBonusValue(){
+	return uwSoul.getHpBonusValue();
 }

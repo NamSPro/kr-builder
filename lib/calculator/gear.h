@@ -6,6 +6,7 @@
 
 #include "option.h"
 #include "4th_dimension.h"
+#include "soul_weapon.h"
 
 enum GEAR_SET{
 	GEAR_SET_NONE,
@@ -34,10 +35,14 @@ class Gear{
 public:
 	Gear(int heroClass = CLASS_NONE);
 	~Gear();
+
 	// setter functions
+	// these should not be called during gear tinkering
 	void changeGearType(int newType, int newAccessoryType = ACCESSORY_NONE);
 	void changeAccessoryType(int newAccessoryType);
 	void changeGearCondition(int newCondition);
+	
+	// these can be called during tinkering
 	void changeStarLevel(int newStarLevel);
 	bool changeOption(int position, Option newOption);
 	bool changeOption(int position, int newOption, double newValue);
@@ -47,7 +52,16 @@ public:
 	bool changeEnchant(int position, int newOption, double newValue);
 	bool changeEnchantValue(int position, double newValue);
 
+	// SW
+	void changeSoulActivationStatus();
+	void changeSoulAdvLevel(int newLevel);
+	void changeSoulEtherLevel(int newEtherLevel);
+	void changeSoulAtkRollValue(double newValue); // HP roll is always 100% - this
+	void changeSoulAtkBonusValue(double newValue);
+	void changeSoulHpBonusValue(double newValue);
+
 	// getter functions
+	// generic
 	int getGearType();
 	int getAccessoryType();
 	double getStatBoost();
@@ -56,6 +70,18 @@ public:
 	Option getOption(int position);
 	Rune getRune(int position);
 	Option getEnchant(int position);
+
+	// SW
+	bool getSoulActivationStatus();
+	int getSoulAdvLevel();
+	int getSoulEtherLevel();
+	double getSoulAtkStat();
+	double getSoulHpStat();
+	double getSoulAtkRollValue();
+	double getSoulHpRollValue();
+	double getSoulAtkBonusValue();
+	double getSoulHpBonusValue();
+
 private:
 	// denotes the class this gear is intended for
 	int equippableClass;
@@ -76,6 +102,9 @@ private:
 
 	// this represents enchantments (from 1 of traditional gear to 3 of TM)
 	Option gearEnchants[GEAR_ENCHANTS_TOTAL];
+
+	// this is self explanatory
+	SoulWeapon uwSoul;
 };
 
 #endif // GEAR_H

@@ -24,7 +24,11 @@ public:
 	Hero(int heroClass = CLASS_NONE);
 	~Hero();
 	// entire piece update and point update 
+	// used to load in premade gear
 	bool changeGear(int position, Gear newGear);
+
+	// used to tinker with the loaded gear
+	void changeGearStarLevel(int position, int newStarLevel);
 	bool changeGearOption(int position, int optionPosition, Option newOption);
 	bool changeGearOption(int position, int optionPosition, int newOption, double newValue);
 	bool changeGearOptionValue(int position, int optionPosition, double newValue);
@@ -36,6 +40,7 @@ public:
 	// getter functions
 	double getStat(int option);
 	double getBaseStat(int option);
+
 private:
 	Hero(int heroClass, std::map <int, double> options);
 	// called whenever an update takes place
