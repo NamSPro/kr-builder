@@ -1,9 +1,11 @@
 // tests.cpp
 // This file implements test suites declared in tests.h
 
+#include <cstdio>
 #include "tests.h"
 
 void test(){
+	freopen("test_output.txt", "w", stdout);
 	Hero kara(CLASS_MECHANIC);
 	printf("Base ATK: %f\n", kara.getBaseStat(OPTION_ATK));
 

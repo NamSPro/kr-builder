@@ -4,6 +4,7 @@
 build
 CMakeFiles
 CMakeCache.txt
+config.h
 
-main.exe
+*.exe
 main

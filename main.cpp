@@ -6,7 +6,9 @@
 #include "SDL_ttf.h"
 #include "lib/calculator/includer.h"
 #include "lib/texture_wrapper.h"
+#ifdef USE_TESTS
 #include "lib/tests/tests.h"
+#endif
 
 const int SCREEN_WIDTH = 1280;
 const int HALF_SCREEN_WIDTH = 640;
@@ -190,6 +192,8 @@ int main(int argc, char* argv[]){
 
 	// free resources and close SDL
 	close();
+#ifdef USE_TESTS
 	test();
+#endif
 	return 0;
 }
