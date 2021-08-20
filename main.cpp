@@ -1,9 +1,9 @@
 #include <iostream>
 #include <cstdio>
 #include <string>
-#include <SDL.h>
-#include <SDL_image.h>
-#include <SDL_ttf.h>
+#include "SDL.h"
+#include "SDL_image.h"
+#include "SDL_ttf.h"
 #include "lib/calculator/includer.h"
 #include "lib/texture_wrapper.h"
 #include "lib/tests/tests.h"

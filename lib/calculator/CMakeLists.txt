@@ -1,0 +1,1 @@
+add_library(calculator hero.cpp gear.cpp option.cpp percentage.cpp soul_weapon.cpp)

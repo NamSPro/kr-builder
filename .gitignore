@@ -1,6 +1,9 @@
 .vscode
 .git
+
 build
+CMakeFiles
+CMakeCache.txt
+
 main.exe
 main
-CMakeLists.txt

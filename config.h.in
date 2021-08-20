@@ -1,0 +1,2 @@
+#define kr_builder_VERSION_MAJOR @kr_builder_VERSION_MAJOR@
+#define kr_builder_VERSION_MINOR @kr_builder_VERSION_MINOR@

@@ -5,8 +5,8 @@
 #define TEXTURE_WRAPPER_H
 
 #include <string>
-#include <SDL.h>
-#include <SDL_image.h>
+#include "SDL.h"
+#include "SDL_image.h"
 
 // this is in essence a wrapper on the SDL_Texture, with w/h properties, load/render functions
 class WTexture{
