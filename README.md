@@ -12,10 +12,13 @@ My attempt at creating a hero building sim for King's Raid.
 
 ## Build
 
-Edit include/library paths in the Makefile and compile!
+Run CMake to generate build files for your compiler, then compile normally.
 
 The current build looks like [this](https://cdn.discordapp.com/attachments/847884337399726130/861229874559713290/unknown.png)
 
 ## Licensing
 The source code files fall under the GNU GPL 3.</br>
 The font file is designed by [Sandoll](https://www.sandollcloud.com) and falls under the OFL 1.1.
+
+## Special Thanks
+- Rezin and Niya for their work with SW flat stats
