@@ -4,6 +4,7 @@
 #include "SDL.h"
 #include "SDL_image.h"
 #include "SDL_ttf.h"
+#include "config.h"
 #include "lib/calculator/includer.h"
 #include "lib/texture_wrapper.h"
 #ifdef USE_TESTS
@@ -148,6 +149,7 @@ SDL_Texture* loadTexture(std::string path){
 }
 
 int main(int argc, char* argv[]){
+	freopen("test_output.txt", "w", stdout);
 	// start up SDL and create window
 	if(!init()){
 		std::cout << "Failed to initialize!\n";

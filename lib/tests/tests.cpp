@@ -5,27 +5,22 @@
 #include "tests.h"
 
 void test(){
-	freopen("test_output.txt", "w", stdout);
 	Hero kara(CLASS_MECHANIC);
 	printf("Base ATK: %f\n", kara.getBaseStat(OPTION_ATK));
 
 	Gear heavenshatterer(CLASS_MECHANIC);
 	heavenshatterer.changeGearCondition(GEAR_UNIQUE);
 	heavenshatterer.changeGearType(GEAR_WEAPON);
+	heavenshatterer.changeStarLevel(STAR_5STAR);
+	for(int it = 0; it < 3; it++) heavenshatterer.changeRune(it, RUNE_ATK);
+	heavenshatterer.changeSoulActivationStatus();
+	heavenshatterer.changeSoulAdvLevel(2);
+	heavenshatterer.changeSoulEtherLevel(20);
+	heavenshatterer.changeSoulAtkRollValue(68.7);
+	heavenshatterer.changeSoulAtkBonusValue(16.2);
+	heavenshatterer.changeSoulHpBonusValue(5.9);
+	printf("ATK boost from UW: %f\nATK boost from SW: %f\n", heavenshatterer.getStatBoost(), heavenshatterer.getSoulAtkStat());
 	kara.changeGear(GEAR_WEAPON, heavenshatterer);
-	printf("ATK with 0* UW: %f\n", kara.getStat(OPTION_ATK));
-
-	Gear manti(CLASS_MECHANIC);
-	manti.changeGearCondition(GEAR_TIER8);
-	manti.changeGearType(GEAR_ACCESSORY);
-	manti.changeAccessoryType(ACCESSORY_EARRINGS);
-	kara.changeGear(GEAR_ACCESSORY, manti);
-	printf("ATK with 0* UW and manti earrings: %f\n", kara.getStat(OPTION_ATK));
-
-	Rune pureAtk = Rune(RUNE_ATK);
-	heavenshatterer.changeRune(0, pureAtk);
-	kara.changeGear(GEAR_WEAPON, heavenshatterer);
-	printf("ATK with 1 ATK rune: %f\n", kara.getStat(OPTION_ATK));
+	printf("ATK with UW: %f\n", kara.getStat(OPTION_ATK));
 	return;
 }
-// remember to delete when prod is up

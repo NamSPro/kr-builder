@@ -8,3 +8,4 @@ config.h
 
 *.exe
 main
+test_output.txt

@@ -5,7 +5,6 @@ configure_file(config.h.in config.h)
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
-set(CMAKE_PREFIX_PATH "E:/sdl")
 set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH}" "${CMAKE_SOURCE_DIR}/cmake/")
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/sdl2")
 set(BASE_PACKAGE "lib" "calculator")
@@ -18,14 +17,14 @@ find_package(SDL2_ttf REQUIRED)
 
 add_subdirectory(lib)
 add_subdirectory(lib/calculator)
-
-add_executable(kr_builder main.cpp)
-
 if(USE_TESTS)
 	add_subdirectory(lib/tests)
 	list(APPEND EXTRA_LIBS tests)
 	list(APPEND EXTRA_INCLUDES "${PROJECT_SOURCE_DIR}/lib/tests")
 endif()
+
+
+add_executable(kr_builder main.cpp)
 
 target_link_libraries(kr_builder PUBLIC ${BASE_PACKAGE} ${EXTRA_LIBS})
 
@@ -33,4 +32,4 @@ target_include_directories(kr_builder PUBLIC
 						   "${PROJECT_BINARY_DIR}"
 						   "${PROJECT_SOURCE_DIR}/lib"
 						   "${PROJECT_SOURCE_DIR}/lib/calculator"
-						   $EXTRA_INCLUDES)
+						   "$EXTRA_INCLUDES")

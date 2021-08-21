@@ -93,6 +93,7 @@ double Hero::getBaseStat(int option){
 Hero::Hero(int heroClass, std::map <int, double> options){
 	for(auto it = options.begin(); it != options.end(); it++){
 		heroBaseSheet[it->first].changeOption(it->first, it->second);
+		heroSheet[it->first].changeOption(it->first, it->second);
 	}
 	for(int it = GEAR_WEAPON; it < GEAR_TYPE_TOTAL; it++){
 		heroGears[it] = Gear(heroClass);
@@ -111,7 +112,7 @@ void Hero::updateInfo(){
 		if(it == GEAR_ARTIFACT || heroGears[it].getGearType() == GEAR_NONE) continue; // again, hardcoded
 
 		if(heroGears[it].getGearType() == GEAR_WEAPON || heroGears[it].getAccessoryType() == ACCESSORY_EARRINGS){
-			if(heroGears[it].getGearType() == GEAR_WEAPON && heroGears[it].getSoulActivationStatus()){ // SW calculation
+			if((heroGears[it].getGearType() == GEAR_WEAPON) && heroGears[it].getSoulActivationStatus()){ // SW calculation
 				heroTempSheet[OPTION_ATK].modifyValue(heroGears[it].getSoulAtkStat());
 				heroTempSheet[OPTION_HP].modifyValue(heroGears[it].getSoulHpStat());
 			}

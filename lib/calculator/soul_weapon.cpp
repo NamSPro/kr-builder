@@ -12,6 +12,7 @@ double powmod(int x){
 }
 
 SoulWeapon::SoulWeapon(){
+	activationStatus = false;
 	advLevel = etherLevel = 0;
 	atkRoll = 50.0;
 	atkBonus = hpBonus = 0.0;
@@ -65,7 +66,8 @@ int SoulWeapon::getEtherLevel(){
 }
 
 double SoulWeapon::getAtkStat(int heroClass){
-	return std::round(2.0 * SW_ATK[etherLevel][CLASS_SW_MAP[heroClass]] * powmod(advLevel) * (atkRoll / 100.0)) * (1.0 + atkBonus / 100.0);
+	int unrounded = std::round(2.0 * SW_ATK[etherLevel][CLASS_SW_MAP[heroClass]] * powmod(advLevel) * (atkRoll / 100.0)) * (1.0 + atkBonus / 100.0);
+	return std::floor(unrounded);
 }
 
 double SoulWeapon::getHpStat(){
