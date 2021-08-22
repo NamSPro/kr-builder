@@ -5,7 +5,7 @@
 #include "percentage.h"
 
 double actualStat(int statType, double value){
-	if(statType > OPTION_MPDMG){ // dmg dealt shenanigans
+	if(statType > OPTION_MPDMG || CAP_GRID[statType][CAP_2ND_UPPER] == 0.0){ // dmg dealt shenanigans
 		return value;
 	}
 

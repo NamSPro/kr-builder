@@ -7,6 +7,7 @@
 Gear::Gear(int heroClass){
 	equippableClass = heroClass;
 	gearType = GEAR_NONE;
+	gearSet = GEAR_SET_NONE;
 	accessoryType = ACCESSORY_NONE;
 	gearCondition = GEAR_UNTIERED;
 	starLevel = STAR_0STAR;
@@ -30,6 +31,11 @@ void Gear::changeAccessoryType(int newAccessoryType){
 
 void Gear::changeGearCondition(int newCondition){
 	gearCondition = newCondition;
+	return;
+}
+
+void Gear::changeGearSet(int newSet){
+	gearSet = newSet;
 	return;
 }
 
@@ -146,6 +152,10 @@ double Gear::getStatBoost(){
 
 int Gear::getCondition(){
 	return gearCondition;
+}
+
+int Gear::getGearSet(){
+	return gearSet;
 }
 
 int Gear::getStarLevel(){

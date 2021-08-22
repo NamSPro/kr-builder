@@ -21,4 +21,4 @@ The source code files fall under the GNU GPL 3.</br>
 The font file is designed by [Sandoll](https://www.sandollcloud.com) and falls under the OFL 1.1.
 
 ## Special Thanks
-- Rezin and Niya for their work with SW flat stats
+- Rezin and Niya for their work with SW flat stats, especially Rezin, who built a +20 SW just to see stats on every ether level!

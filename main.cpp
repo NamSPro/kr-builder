@@ -14,6 +14,8 @@
 const int SCREEN_WIDTH = 1280;
 const int HALF_SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 720;
+const int LR_MARGIN = 50;
+const int TOP_MARGIN = 100;
 
 const int TILE_SIZE = 70;
 

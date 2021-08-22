@@ -41,6 +41,7 @@ public:
 	void changeGearType(int newType, int newAccessoryType = ACCESSORY_NONE);
 	void changeAccessoryType(int newAccessoryType);
 	void changeGearCondition(int newCondition);
+	void changeGearSet(int newSet);
 	
 	// these can be called during tinkering
 	void changeStarLevel(int newStarLevel);
@@ -64,6 +65,7 @@ public:
 	// generic
 	int getGearType();
 	int getAccessoryType();
+	int getGearSet();
 	double getStatBoost();
 	int getCondition();
 	int getStarLevel();
@@ -91,7 +93,7 @@ private:
 	int gearType, accessoryType;
 
 	// GEAR_TIER(number), GEAR_UNIQUE or GEAR_TM/GEAR_TM_RECLAIMED
-	int gearCondition;
+	int gearCondition, gearSet;
 	int starLevel;
 
 	// this represents gear options
