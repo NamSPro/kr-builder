@@ -83,7 +83,7 @@ bool Gear::changeEnchant(int position, Option newOption){
 		printf("Unique gears cannot have enchants!\n");
 		return false;
 	}
-	if(gearCondition != GEAR_TM && position > 0){
+	if(gearCondition != GEAR_TM && gearCondition != GEAR_TM_RECLAIMED && position > 0){
 		printf("Normal gears cannot have more than one enchant option!\n");
 		return false;
 	}
@@ -144,7 +144,7 @@ double Gear::getStatBoost(){
 	if(gearType == GEAR_ACCESSORY){
 		return GEAR_ACCESSORY_STATS[gearCondition][accessoryType][starLevel];
 	}
-	if(gearType == GEAR_ORB){
+	if(gearType == GEAR_ORB || gearType == GEAR_TREASURE){
 		return GEAR_ACCESSORY_STATS[gearCondition][ACCESSORY_RING][starLevel];
 	}
 	return GEAR_BASE_STATS[gearCondition][equippableClass][gearType][starLevel];

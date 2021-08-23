@@ -34,6 +34,7 @@ public:
 	// entire piece update
 	// used to load in premade gear
 	bool changeGear(int position, Gear newGear);
+	void changeTreasure(int position, Gear newTreasure);
 
 	// used to tinker with the loaded gear
 	void changeGearStarLevel(int position, int newStarLevel);

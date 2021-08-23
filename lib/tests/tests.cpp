@@ -25,10 +25,12 @@ void test(){
 	Gear mainArmor(CLASS_MECHANIC);
 	mainArmor.changeGearCondition(GEAR_TM_RECLAIMED);
 	mainArmor.changeGearType(GEAR_ARMOR);
+	mainArmor.changeGearSet(GEAR_SET_GALGORIA);
 	mainArmor.changeStarLevel(STAR_5STAR);
 	for(int i = 0; i < 2; i++) mainArmor.changeOption(i, Option(OPTION_ATK, 16.0));
 	mainArmor.changeRune(0, Rune(RUNE_VELK_ATK, true, RUNE_VELK_CDMG));
 	mainArmor.changeEnchant(0, Option(OPTION_ATK, 4.0));
+	mainArmor.changeEnchant(1, Option(OPTION_CDMG, 8.0));
 	kara.changeGear(GEAR_ARMOR, mainArmor);
 	mainArmor.changeGearType(GEAR_SECONDARY);
 	kara.changeGear(GEAR_SECONDARY, mainArmor);
@@ -36,8 +38,24 @@ void test(){
 	mainArmor.changeGearType(GEAR_ORB);
 	kara.changeGear(GEAR_ORB, mainArmor);
 	mainArmor.changeEnchantValue(0, 8.0);
+	mainArmor.changeEnchantValue(1, 0.0);
 	mainArmor.changeGearType(GEAR_ACCESSORY, ACCESSORY_EARRINGS);
 	kara.changeGear(GEAR_ACCESSORY, mainArmor);
+	kara.printSheet();
+
+	Gear ut2(CLASS_MECHANIC);
+	ut2.changeGearCondition(GEAR_UNIQUE);
+	ut2.changeGearType(GEAR_TREASURE);
+	ut2.changeStarLevel(STAR_5STAR);
+	ut2.changeOption(0, Option(OPTION_ATK, 14.0));
+	ut2.changeOption(1, Option(OPTION_CDMG, 22.0));
+	kara.changeTreasure(0, ut2);
+	ut2.changeOption(1, Option(OPTION_CDMG, 24.0));
+	kara.changeTreasure(1, ut2);
+	ut2.changeOption(1, Option(OPTION_SPD, 120.0));
+	kara.changeTreasure(2, ut2);
+	ut2.changeOption(1, Option(OPTION_SPD, 110.0));
+	kara.changeTreasure(3, ut2);
 	kara.printSheet();
 	return;
 }

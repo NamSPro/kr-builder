@@ -34,6 +34,12 @@ bool Hero::changeGear(int position, Gear newGear){
 	return true;
 }
 
+void Hero::changeTreasure(int position, Gear newTreasure){
+	heroTreasures[position] = newTreasure;
+	updateInfo();
+	return;
+}
+
 void Hero::changeGearStarLevel(int position, int newStarLevel){
 	heroGears[position].changeStarLevel(newStarLevel);
 	updateInfo();
@@ -95,13 +101,15 @@ double Hero::getBaseStat(int option){
 }
 
 void Hero::printSheet(){
+	updateInfo();
+
 	// basic stats
 	printf("Max HP: %d\nATK: %d\n", getStat(OPTION_HP), getStat(OPTION_ATK));
 	printf("PDEF: %d\nMDEF: %d\n", getStat(OPTION_PDEF), getStat(OPTION_MDEF));
 
 	// additional stats, offensive series
 	printf("Crit: %d | %d\%\n", getFlatStat(OPTION_CRIT), getStat(OPTION_CRIT));
-	printf("Crit DMG: %d | %d\%\n", getFlatStat(OPTION_CDMG), getStat(OPTION_CDMG));
+	printf("Crit DMG: %d\%\n", getFlatStat(OPTION_CDMG));
 }
 
 Hero::Hero(int heroClass, std::map <int, double> options){
@@ -121,6 +129,9 @@ void Hero::updateInfo(){
 		heroSheet[option] = Option();
 	}
 	int setCount[GEAR_SET_TOTAL];
+	for(int set = GEAR_SET_NONE; set < GEAR_SET_TOTAL; set++){
+		setCount[set] = 0;
+	}
 	// finding the modifiers
 	for(int it = GEAR_WEAPON; it < GEAR_TYPE_TOTAL - 1; it++){
 		if(it == GEAR_ARTIFACT || heroGears[it].getGearType() == GEAR_NONE) continue; // again, hardcoded
@@ -174,7 +185,62 @@ void Hero::updateInfo(){
 		}
 	}
 
+	// UTs
+	for(int it = 0; it < TREASURE_COUNT; it++){
+		if(heroTreasures[it].getGearType() == GEAR_NONE) continue;
+		if(it == 0) heroFlatSheet[OPTION_HP].modifyValue(heroTreasures[it].getStatBoost());
+		for(int optionCount = 0; optionCount < 2; optionCount++){
+			Option currentOption = heroTreasures[it].getOption(optionCount);
+			if(currentOption.getOptionType() == OPTION_NONE){
+				continue;
+			}
+			int currentOptionType = currentOption.getOptionType();
+			heroSheet[currentOptionType].modifyValue(currentOption.getOptionValue());
+		}
+	}
+
 	// start checking set bonuses
+	if(setCount[GEAR_SET_RED] >= 2){
+		if(setCount[GEAR_SET_RED] >= 4) heroSheet[OPTION_CRIT].modifyValue(130.0);
+		heroSheet[OPTION_CRIT].modifyValue(100.0);
+	}
+	if(setCount[GEAR_SET_ICE] >= 2){
+		if(setCount[GEAR_SET_ICE] >= 4) heroSheet[OPTION_HP].modifyValue(13.0);
+		heroSheet[OPTION_HP].modifyValue(10.0);
+	}
+	if(setCount[GEAR_SET_POISON] >= 2){
+		if(setCount[GEAR_SET_POISON] >= 4) heroSheet[OPTION_CRIT_RES].modifyValue(130.0);
+		heroSheet[OPTION_CRIT_RES].modifyValue(100.0);
+	}
+	if(setCount[GEAR_SET_BLACK] >= 2){
+		if(setCount[GEAR_SET_BLACK] >= 4) heroSheet[OPTION_MPATK].modifyValue(260.0);
+		heroSheet[OPTION_MPATK].modifyValue(200.0);
+	}
+	if(setCount[GEAR_SET_LAVA] >= 2){
+		if(setCount[GEAR_SET_LAVA] >= 4) heroSheet[OPTION_CDMG].modifyValue(26.0);
+		heroSheet[OPTION_CDMG].modifyValue(20.0);
+	}
+	if(setCount[GEAR_SET_LEGEND] >= 2){
+		if(setCount[GEAR_SET_LEGEND] >= 4) heroSheet[OPTION_DEBUFF_ACC].modifyValue(130.0);
+		heroSheet[OPTION_DEBUFF_ACC].modifyValue(100.0);
+	}
+	if(setCount[GEAR_SET_SUPPRESS] >= 2){
+		if(setCount[GEAR_SET_SUPPRESS] >= 4) ;// DMG dealt to Heroes +13%
+		// DMG dealt to Heroes +7%
+	}
+	if(setCount[GEAR_SET_PROTECT] >= 2){
+		if(setCount[GEAR_SET_PROTECT] >= 4) ;// DMG taken from Heroes -11%
+		// DMG taken from Heroes -6%
+	}
+	if(setCount[GEAR_SET_DL] >= 2){
+		// DL set realistically targets everyone, but that's for later
+		if(setCount[GEAR_SET_DL] >= 4) heroSheet[OPTION_CDMG].modifyValue(8.0);
+		heroSheet[OPTION_CDMG].modifyValue(5.0);
+	}
+	if(setCount[GEAR_SET_MANTI] >= 2){
+		if(setCount[GEAR_SET_MANTI] >= 4) ;
+	}
+	// every set below needs more code to be effectively implemented
 	// end checking set bonuses
 
 	// dividing the general defensive lines (DEF, TOUGH, DODGE...) to their specific counterparts
